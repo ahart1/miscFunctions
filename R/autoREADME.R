@@ -21,13 +21,14 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   # Remove dirREADME directory from list
   fileList$File <- fileList$File[-which(fileList$File==dirREADME)]
 
+  print("File names here")
+  print("fileList$File")
+
   # Split filenames
   fileSplit <- strsplit(fileList$File, "/", fixed=T)
 
   # Pull unique files at top directory level for the current repository
   uniqueFile <- sapply(fileSplit,"[[",1) %>% unique()
-  print("Unique files printed here")
-  print(uniqueFile)
 
   # Use strsplit() to ID files vs. sub-directories
   index <- strsplit(uniqueFile, ".", fixed=TRUE)

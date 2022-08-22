@@ -26,6 +26,7 @@ jobs:
       - name: Install and cache dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
+          args: 'c("--no-manual")
           extra-packages: any::rcmdcheck
 
       # - name: Check package

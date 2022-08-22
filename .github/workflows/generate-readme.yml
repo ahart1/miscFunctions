@@ -73,8 +73,8 @@ jobs:
       - name: update_README
         run: |
           library("tidyverse")
-          source("R/autoREADME.R")
-          source("TestScript.R")
+          source("miscFunctions/R/autoREADME.R")
+          source("miscFunctions/TestScript.R")
         shell: Rscript {0}
 
       - name: Commit files

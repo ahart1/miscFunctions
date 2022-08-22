@@ -41,11 +41,11 @@ jobs:
           extra-packages: any::rcmdcheck
           working-directory: miscFunctions
 
-      - name: Check package
-        uses: r-lib/actions/check-r-package@v2
-        with:
-          args: c("--no-manual")
-       # Can check manually using: rcmdcheck(args = c("--no-manual"))
+      # - name: Check package
+      #   uses: r-lib/actions/check-r-package@v2
+      #   with:
+      #     args: c("--no-manual")
+      #  # Can check manually using: rcmdcheck(args = c("--no-manual"))
 
       # # - name: Query dependencies
       # #   run: |

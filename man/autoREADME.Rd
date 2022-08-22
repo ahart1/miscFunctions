@@ -17,5 +17,5 @@ autoREADME(dirREADME = NULL, title = "", description = "")
 Generates new/updated README file in specified dirREADME directory.
 }
 \description{
-Auto generate or update a README file in the specified directory.
+Auto generate or update a README file in the specified directory. Existing README files MUST contain a File and Folder table with at least one blank line for the auto-update to work.
 }

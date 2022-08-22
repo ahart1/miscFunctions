@@ -1,0 +1,70 @@
+# YAML file to auto generate and update README files
+
+name: auto-generate-readme
+on:
+  schedule:
+    # auto generate each Monday at 8 AM
+    - cron: '0 8 * * 1'
+
+  push:
+      branches: [ master ]
+      # Anytime this YAML file gets updated rerun the jobs, comment out if only want to run at 8am on Mondays (above "on:"")
+
+jobs:
+  make-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current version of repo
+      - uses: actions/checkout@v2
+
+      - name: Setup R
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+          # http-user-agent: ${{ matrix.config.http-user-agent }}
+
+      - name: Install and cache dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+
+      - name: Check package
+        uses: r-lib/actions/check-r-package@v2
+
+
+      # # - name: Query dependencies
+      # #   run: |
+      # #     install.packages('devtools', dependencies = TRUE)
+      # #     install.packages("remotes")
+      # #     saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+      # #     writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+      # #   shell: Rscript {0}
+      #
+      # # - name: Cache R packages
+      # #   uses: actions/cache@v1
+      # #   with:
+      # #     path: ${{ env.R_LIBS_USER }}
+      # #     key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+      # #     restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+      #
+      # - name: Install dependencies
+      #   run: |
+      #     # remotes::install_deps(dependencies = TRUE)
+      #     install.packages('devtools', dependencies = TRUE)
+      #     # The above install appears to work but the package is then not available to the script that uses it, maybe it needs to be cached? I am not sure how this works above, but it pulls from a depends.Rds file built based off a DESCRIPTION file
+      #     # probably want to go the renv route and loading from a file: https://www.r-bloggers.com/2020/09/running-an-r-script-on-a-schedule-gh-actions/
+      #   shell: Rscript {0}
+
+      # - name: update_README
+      #   run: |
+      #     source("TestScript.R")
+      #   shell: Rscript {0}
+
+      - name: Commit files
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add --all
+          git commit -am "add data"
+          git push
+

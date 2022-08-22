@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout other repos
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: ahart1/TestRepo
           path: TestRepo
@@ -25,7 +25,7 @@ jobs:
           # Above needed if private repo (need to provide credentials to add)
 
       - name: Checkout current version of repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: main
 

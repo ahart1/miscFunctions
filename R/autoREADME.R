@@ -4,6 +4,8 @@
 #' @param dirREADME A string specifying the directory to auto generate or update a README file, no default. If updating an existing file, the README must already contain a File and Folder table preceeded by a table.
 #' @param title An optional argument (string) to provide a new title when generating a README file for the first time, default = "".
 #' @param description An optional argument (string) to provide a description to follow the title when generating a new README file, default = "".
+#'
+#' @return Generates new/updated README file in specified dirREADME directory.
 
 autoREADME <- function(dirREADME = NULL, title = "", description =""){
   ##### Get updated file info for README #####

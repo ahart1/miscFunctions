@@ -28,9 +28,9 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
 
-      - name: Check package
-        uses: r-lib/actions/check-r-package@v2
-
+      # - name: Check package
+      #   uses: r-lib/actions/check-r-package@v2
+       # Can check manually using: rcmdcheck(args = c("--no-manual"))
 
       # # - name: Query dependencies
       # #   run: |
@@ -55,10 +55,10 @@ jobs:
       #     # probably want to go the renv route and loading from a file: https://www.r-bloggers.com/2020/09/running-an-r-script-on-a-schedule-gh-actions/
       #   shell: Rscript {0}
 
-      # - name: update_README
-      #   run: |
-      #     source("TestScript.R")
-      #   shell: Rscript {0}
+      - name: update_README
+        run: |
+          source("TestScript.R")
+        shell: Rscript {0}
 
       - name: Commit files
         run: |

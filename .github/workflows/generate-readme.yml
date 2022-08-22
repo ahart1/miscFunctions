@@ -27,7 +27,7 @@ jobs:
       - name: Checkout current version of repo
         uses: actions/checkout@v3
         with:
-          path: main
+          path: miscFunctions
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
@@ -39,7 +39,7 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
-          working-directory: main
+          working-directory: miscFunctions
 
       - name: Check package
         uses: r-lib/actions/check-r-package@v2

@@ -25,6 +25,8 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   fileSplit <- strsplit(fileList$File, "/", fixed=T)
 
   # Pull unique files at top directory level for the current repository
+  print("Unique files printed here")
+  print(uniqueFile)
   uniqueFile <- sapply(fileSplit,"[[",1) %>% unique()
 
   # Use strsplit() to ID files vs. sub-directories

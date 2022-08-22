@@ -16,15 +16,16 @@ jobs:
   make-readme:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout current version of repo
-        uses: actions/checkout@v2
-
       - name: Checkout other repos
         uses: actions/checkout@v2
         with:
           repository: ahart1/TestRepo
           # token: ${{secrets.my_pat}}
           # Above needed if private repo (need to provide credentials to add)
+
+      - name: Checkout current version of repo
+        uses: actions/checkout@v2
+
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2

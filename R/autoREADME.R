@@ -1,5 +1,5 @@
 #' @title Auto generate or update README
-#' @description Auto generate or update a README file in the specified directory.
+#' @description Auto generate or update a README file in the specified directory. Existing README files MUST contain a File and Folder table with at least one blank line for the auto-update to work.
 #'
 #' @param dirREADME A string specifying the directory to auto generate or update a README file, no default. If updating an existing file, the README must already contain a File and Folder table preceeded by a table.
 #' @param title An optional argument (string) to provide a new title when generating a README file for the first time, default = "".
@@ -8,13 +8,18 @@
 #' @return Generates new/updated README file in specified dirREADME directory.
 
 autoREADME <- function(dirREADME = NULL, title = "", description =""){
+  setwd(here::here())
+  setwd("..") # Move to top directory (i.e. 1 parent to current directory)
   ##### Get updated file info for README #####
   fileList <- NULL
-  # Generate updated list of files in repo
+  # Generate updated list of files and sub-directories in repo
   fileList$File <- list.files(dirREADME,recursive=T, full.names = T)
+  fileList$File <- c(fileList$File, list.dirs(dirREADME, recursive=T, full.names=T))
 
   # Filter out repo part of filename
   fileList$File <- gsub(paste(dirREADME, "/", sep=""),"", fileList$File)
+  # Remove dirREADME directory from list
+  fileList$File <- fileList$File[-which(fileList$File==dirREADME)]
 
   # Split filenames
   fileSplit <- strsplit(fileList$File, "/", fixed=T)

@@ -2,6 +2,8 @@
 
 name: auto-generate-readme
 on:
+  workflow_dispatch:
+  # Above allows manual running of GitHub action through interface
   schedule:
     # auto generate each Monday at 8 AM
     - cron: '0 8 * * 1'

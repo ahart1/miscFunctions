@@ -59,6 +59,7 @@ jobs:
 
       - name: update_README
         run: |
+          source("R/autoREADME.R")
           source("TestScript.R")
         shell: Rscript {0}
 

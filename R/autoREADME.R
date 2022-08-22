@@ -10,7 +10,10 @@
 autoREADME <- function(dirREADME = NULL, title = "", description =""){
   print(here::here())
   setwd(here::here())
-  setwd("../..") # Move to top directory (i.e. 1 parent to current directory)
+  # setwd("../..") # Move to top directory (i.e. 1 parent to current directory)
+  setwd(paste("/home/runner/work/", dirREADME, sep="/"))
+  print("newdirectory")
+  print(getwd())
   ##### Get updated file info for README #####
   fileList <- NULL
   # Generate updated list of files and sub-directories in repo

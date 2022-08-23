@@ -20,7 +20,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   # Generate updated list of files and sub-directories in repo
   fileList$File <- list.files(dirREADME,recursive=T, full.names = T)
   fileList$File <- c(fileList$File, list.dirs(dirREADME, recursive=T, full.names=T))
-
+  print(list.dirs(dirREADME, recursive=T, full.names=T))
   # Filter out repo part of filename
   fileList$File <- gsub(paste(dirREADME, "/", sep=""),"", fileList$File)
   # Remove dirREADME directory from list
@@ -32,8 +32,14 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   # Split filenames
   fileSplit <- strsplit(fileList$File, "/", fixed=T)
 
+  print("File split")
+  print(fileSplit)
+
   # Pull unique files at top directory level for the current repository
   uniqueFile <- sapply(fileSplit,"[[",1) %>% unique()
+
+  print("uniqueFile")
+  print(uniqueFile)
 
   # Use strsplit() to ID files vs. sub-directories
   index <- strsplit(uniqueFile, ".", fixed=TRUE)

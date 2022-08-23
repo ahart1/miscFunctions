@@ -69,22 +69,26 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
     sortFolderLinesIndex <- which(sortFolderLines < folderTabTop) %>% max() # Pick next smallest title line as the fileTab title
     folderTitle <- sortFolderLines[sortFolderLinesIndex]
 
-    # Skip title if fileTitle or folderTitle is the first title in the existing file
-    if(fileTitle != titleLines[1]){
+    # Add title
+    if(fileTitle != titleLines[1]){ # Skip title if fileTitle or folderTitle is the first title in the existing file
       # Fill in new README title and description from existing README
       write(existingREADME[1:titleLines[2]-1],file=paste(dirREADME,"README.md",sep="/"),append=FALSE)
-    } else if(folderTitle != titleLines[1]){
-      # Fill in new README title and description from existing README
-      write(existingREADME[1:titleLines[2]-1],file=paste(dirREADME,"README.md",sep="/"),append=FALSE)
+      print("test1")
     }
-    # else if(title != ""){ # If title argument not set to default, print the title
-    #   write(title, file=paste(dirREADME,"README.md",sep="/"),append=FALSE)
-    # }
+    if(folderTitle != titleLines[1]){
+      # Fill in new README title and description from existing README
+      write(existingREADME[1:titleLines[2]-1],file=paste(dirREADME,"README.md",sep="/"),append=FALSE)
+      print("test2")
+    }
+    if(title != ""){ # If title argument not set to default, print the title
+      write(title, file=paste(dirREADME,"README.md",sep="/"),append=FALSE)
+      print("test3")
+    }
 
-    # # Add description if argument not set to default
-    # if(description != ""){
-    #   write(description, file=paste(dirREADME,"README.md",sep="/"),append=TRUE)
-    # }
+    # Add description if argument not set to default
+    if(description != ""){
+      write(description, file=paste(dirREADME,"README.md",sep="/"),append=TRUE)
+    }
 
     # Fill in tables
     if(fileTabTop < folderTabTop){ # If existing file table listed first autofill this information first

@@ -24,7 +24,7 @@ jobs:
           token: ${{secrets.AUTOREADME_PAT}}
           # Above needed if private repo (need to provide credentials to add)
 
-      - name: Checkout other repos
+      - name: Checkout TestThis repo
         uses: actions/checkout@v3
         with:
           repository: ahart1/TestThis

@@ -78,12 +78,22 @@ jobs:
         shell: Rscript {0}
 
       - name: Commit files
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: EndBug/add-and-commit@v9
         with:
-          commit_message: Auto update/generate README file.
-          file_pattern: README.md
-          repository: TestRepo
+          author_name: A. Hart
+          message: "Auto update/generate README file."
+          cwd: TestRepo
+          push: true
 
+      # doesn't add files
+      # - name: Commit files
+      #   uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     commit_message: Auto update/generate README file.
+      #     file_pattern: README.md
+      #     repository: TestRepo
+
+      # Requires setup
       # - name: Commit files
       #   run: |
       #     git config --local user.email "actions@github.com"

@@ -10,7 +10,8 @@
 autoREADME <- function(dirREADME = NULL, title = "", description =""){
   print(here::here())
   setwd(here::here())
-  setwd("../..", dirREADME, sep="/") # Move to top directory (i.e. 1 parent to current directory)
+  setwd("../..") # Move to top directory (i.e. 1 parent to current directory)
+  setwd(paste(getwd(), dirREADME, sep="/"))
   # setwd(paste("/home/runner/work/", dirREADME, sep="/"))
   print("newdirectory")
   print(getwd())

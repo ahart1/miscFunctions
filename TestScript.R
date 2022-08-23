@@ -6,6 +6,7 @@
   # IF new directory is from a new repo also do the following:
     # 2) Add new section to YAML file to checkout other repos
     # 3) In the GitHub repo go to Settings -> Actions -> General -> Workflow permissions and select "Read and write permissions"
+    # 4) Add new section to YAML file to commit updated README files
 
 ##### Update/generate README files #####
 autoREADME(dirREADME = "TestRepo/AnotherFolder")

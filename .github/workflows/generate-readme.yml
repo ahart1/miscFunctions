@@ -78,7 +78,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Commit files
-        uses: git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_msesage: Auto update/generate README file.
           file_pattern: README.md

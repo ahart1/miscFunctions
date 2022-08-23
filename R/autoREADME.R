@@ -8,13 +8,6 @@
 #' @return Generates new/updated README file in specified dirREADME directory.
 
 autoREADME <- function(dirREADME = NULL, title = "", description =""){
-  # print(here::here())
-  # setwd(here::here())
-  # setwd("../..") # Move to top directory (i.e. 1 parent to current directory)
-  # setwd(paste(getwd(), dirREADME, sep="/"))
-  # # setwd(paste("/home/runner/work/", dirREADME, sep="/"))
-  # print("newdirectory")
-  # print(getwd())
   ##### Get updated file info for README #####
   fileList <- NULL
   # Generate updated list of files and sub-directories in repo
@@ -25,9 +18,6 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   fileList$File <- gsub(paste(dirREADME, "/", sep=""),"", fileList$File)
   # Remove dirREADME directory from list
   fileList$File <- fileList$File[-which(fileList$File==dirREADME)]
-
-  print("File names here")
-  print(fileList$File)
 
   # Split filenames
   fileSplit <- strsplit(fileList$File, "/", fixed=T)
@@ -316,11 +306,11 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
         }
       } # End if statement about end of file vs. end & subsequent headers
 
+    }
 
 
 
-
-  # End pull from existing README file
+    # End pull from existing README file
   } else{ # Generate new README
 
     # Fill in optional README title
@@ -333,7 +323,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
     write(paste0("### ", "Files"), file = paste(dirREADME,"README.md",sep="/"), append = TRUE)
     write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Add divider for formatting
     for(ifile in fileNames){
-        write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
+      write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
     }
     write(" ", file = paste(dirREADME,"README.md",sep="/"), append = TRUE) # Add empty line
 

@@ -64,3 +64,13 @@ jobs:
           push: true
           github_token: ${{secrets.AUTOREADME_PAT}}
        # Will need to periodically update personal access token (limited lifespan) & corresponding secrets
+
+      - name: Commit files TestThis repo
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: A. Hart
+          message: "Auto update/generate README file."
+          cwd: TestThis
+          push: true
+          github_token: ${{secrets.AUTOREADME_PAT}}
+

@@ -85,6 +85,7 @@ jobs:
           message: "Auto update/generate README file."
           cwd: TestRepo
           push: true
+          github_token: ${{secrets.GITHUB_TOKEN}}
           # Above could work but requires credentials to push to repo
           # probably need to provide token to actions/checkout
 

@@ -80,7 +80,7 @@ jobs:
       - name: Commit files
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_msesage: Auto update/generate README file.
+          commit_message: Auto update/generate README file.
           file_pattern: README.md
           repository: TestRepo
 

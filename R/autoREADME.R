@@ -46,6 +46,9 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   ##### Pull info from existing README (if none exists skip this step) #####
   if((fileNamesTemp[which(grepl("README", fileNamesTemp, fixed = TRUE) ==TRUE)] %>% length() >0)==TRUE){
 
+    print((fileNamesTemp[which(grepl("README", fileNamesTemp, fixed = TRUE) ==TRUE)] %>% length() >0)==TRUE)
+    print(dirREADME)
+
     # Read in info from existing README.md
     existingREADME <- readLines(con= paste(dirREADME, "README.md", sep="/"))
 

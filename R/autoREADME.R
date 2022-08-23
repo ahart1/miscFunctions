@@ -13,7 +13,6 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   # Generate updated list of files and sub-directories in repo
   fileList$File <- list.files(dirREADME,recursive=T, full.names = T)
   fileList$File <- c(fileList$File, list.dirs(dirREADME, recursive=T, full.names=T))
-  print(list.dirs(dirREADME, recursive=TRUE, full.names=TRUE))
   # Filter out repo part of filename
   fileList$File <- gsub(paste(dirREADME, "/", sep=""),"", fileList$File)
   # Remove dirREADME directory from list
@@ -46,8 +45,10 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   ##### Pull info from existing README (if none exists skip this step) #####
   if((fileNamesTemp[which(grepl("README", fileNamesTemp, fixed = TRUE) ==TRUE)] %>% length() >0)==TRUE){
 
-    print((fileNamesTemp[which(grepl("README", fileNamesTemp, fixed = TRUE) ==TRUE)] %>% length() >0)==TRUE)
     print(dirREADME)
+    print((fileNamesTemp[which(grepl("README", fileNamesTemp, fixed = TRUE) ==TRUE)] %>% length() >0)==TRUE)
+    print("fileNamesTemp")
+    print(fileNamesTemp)
 
     # Read in info from existing README.md
     existingREADME <- readLines(con= paste(dirREADME, "README.md", sep="/"))
@@ -100,9 +101,6 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
             fileIndex <- which(existingFileName == ifile)
             fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
 
-            print(ifile)
-            print("fileDescription")
-            print(fileDescription)
             write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
 
           } else{

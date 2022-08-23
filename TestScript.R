@@ -19,26 +19,10 @@
     # 3b) Change schedule using 'cron' in YAML file OR
     # 3c) Uncomment the 'push: branches: [ master ]' lines in the YAML so action run on every push (CAUTION: frequent pushes could result in running out of GitHub action minutes!)
 
-# install.packages("usethis")
-# library(usethis)
-# install.packages("pkgdown")
-# library(pkgdown)
-# install.packages("rcmdcheck")
-# library(rcmdcheck)
-# install.packages("rversions")
-# library(rversions)
-# install.packages("urlchecker")
-# library(urlchecker)
-# install.packages('devtools')
-# library(devtools)
-# devtools::install_github("ahart1/miscFunctions")
-# library(miscFunctions)
-# devtools::install_github("ahart1/miscFunctions")
-
 
 # Test README generation
 autoREADME(dirREADME = "TestRepo/AnotherFolder")
-
+autoREADME(dirREADME = "TestRepo/TestFolder")
 
 
 # Simpler example: https://blog--simonpcouch.netlify.app/blog/r-github-actions-commit/

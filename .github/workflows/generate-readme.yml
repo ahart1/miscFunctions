@@ -78,11 +78,18 @@ jobs:
         shell: Rscript {0}
 
       - name: Commit files
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add --all
-          git commit -am "add data"
-          git push
+        uses: ahart1/git-auto-commit-action@v4
+        with:
+          commit_msesage: Auto update/generate README file.
+          file_pattern: README.md
+          repository: TestRepo
+
+      # - name: Commit files
+      #   run: |
+      #     git config --local user.email "actions@github.com"
+      #     git config --local user.name "GitHub Actions"
+      #     git add --all
+      #     git commit -am "add data"
+      #     git push
 
 

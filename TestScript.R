@@ -8,10 +8,9 @@
     # 3) In the GitHub repo go to Settings -> Actions -> General -> Workflow permissions and select "Read and write permissions"
 
 ##### Update/generate README files #####
-print("Test Another Folder")
 autoREADME(dirREADME = "TestRepo/AnotherFolder")
-print("Test Folder")
 autoREADME(dirREADME = "TestRepo/TestFolder")
+autoREADME(dirREADME = "TestThis")
 
 ##### Debugging #####
 # If the GitHub action does not work try:

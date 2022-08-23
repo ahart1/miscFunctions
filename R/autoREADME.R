@@ -130,7 +130,6 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
         if("" %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
           for(ifolder in folderNames){
             write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
-
           }
         } else{ # Populate with new folders
           splitExistingFolders <- strsplit(existingFolders, "| ", fixed=TRUE)
@@ -151,7 +150,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
           } # End loop over folders
         }
       } else { # folderTabTop and any subsequent headers
-        existingFolders <- existingREADME[(folderTabTop+1):length(existingREADME)]
+        existingFolders <- existingREADME[(folderTabTop+1):(titleLines[length(titleLines)]-2)]
 
         if("" %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
           for(ifolder in folderNames){
@@ -272,7 +271,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
         }
 
       } else { # fileTabTop and any subsequent headers
-        existingFiles <- existingREADME[(fileTabTop+1):length(existingREADME)]
+        existingFiles <- existingREADME[(fileTabTop+1):(titleLines[length(titleLines)]-2)]
 
         if("" %in% existingFiles){ # If no existing files in README skip to fill in with new files
           for(ifile in fileNames){

@@ -99,10 +99,9 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
       for(ifile in fileNames){
         if(ifile %in% checkExistingFiles){ # If description in existing README include here
           fileIndex <- which(existingFileName == ifile)
-          print("fileIndex")
-          print(fileIndex)
           fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
 
+          print(ifile)
           print("fileDescription")
           print(fileDescription)
           write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
@@ -123,51 +122,66 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
 
       # Pull out existing table lines between:
       if(folderTitle == titleLines[length(titleLines)]){ # folderTabTop and end of file
-        existingFolders <- existingREADME[(folderTabTop+1):length(existingREADME)]
-        splitExistingFolders <- strsplit(existingFolders, "| ", fixed=TRUE)
-        existingFolderNames <- sapply(splitExistingFolders,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following folder name
-        checkExistingFolders <- existingFolderNames[which(existingFolderNames %in% uniqueFile)]
-
-        # Populate table
-        for(ifolder in folderNames){
-          if(ifolder %in% checkExistingFolders){ # If description in existing README include here
-            folderIndex <- which(existingFolderNames == ifolder)
-            folderDescription <- sapply(splitExistingFolders, "[[", 3)[folderIndex]
-
-            write(paste0("| ",ifolder," | ", folderDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
-
-          } else{
+        if(NA %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
+          for(ifolder in folderNames){
             write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
+
           }
-        } # End loop over folders
+        } else{ # Populate with new folders
+          existingFolders <- existingREADME[(folderTabTop+1):length(existingREADME)]
+          splitExistingFolders <- strsplit(existingFolders, "| ", fixed=TRUE)
+          existingFolderNames <- sapply(splitExistingFolders,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following folder name
+          checkExistingFolders <- existingFolderNames[which(existingFolderNames %in% uniqueFile)]
+
+          # Populate table
+          for(ifolder in folderNames){
+            if(ifolder %in% checkExistingFolders){ # If description in existing README include here
+              folderIndex <- which(existingFolderNames == ifolder)
+              folderDescription <- sapply(splitExistingFolders, "[[", 3)[folderIndex]
+
+              write(paste0("| ",ifolder," | ", folderDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
+
+            } else{
+              write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
+            }
+          } # End loop over folders
+        }
 
       } else { # folderTabTop and any subsequent headers
-        existingFolders <- existingREADME[(folderTabTop+1):(titleLines[which(titleLines == folderTitle)+1]-2)]
-        splitExistingFolders <- strsplit(existingFolders, "| ", fixed=TRUE)
-        existingFolderNames <- sapply(splitExistingFolders,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
-        checkExistingFolders <- existingFolderNames[which(existingFolderNames %in% uniqueFile)]
-
-        # Populate table
-        for(ifolder in folderNames){
-          if(ifolder %in% checkExistingFolders){ # If description in existing README include here
-            folderIndex <- which(existingFolderNames == ifolder)
-            folderDescription <- sapply(splitExistingFolders, "[[", 3)[folderIndex]
-
-            write(paste0("| ",ifolder," | ", folderDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
-
-          } else{
+        if(NA %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
+          for(ifolder in folderNames){
             write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
+
           }
-        } # End loop over folders
-      }
+        } else{ # Populate with new folders
+          existingFolders <- existingREADME[(folderTabTop+1):length(existingREADME)]
+          splitExistingFolders <- strsplit(existingFolders, "| ", fixed=TRUE)
+          existingFolderNames <- sapply(splitExistingFolders,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following folder name
+          checkExistingFolders <- existingFolderNames[which(existingFolderNames %in% uniqueFile)]
 
-      ### Any extra sections
-      if(length(titleLines > 3) & is.na(titleLines[which(titleLines ==folderTitle)+1]) != TRUE){ # If the folderTitle is the last heading this won't be run
-        write(" ", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
-        write(existingREADME[titleLines[which(titleLines ==folderTitle)+1]:length(existingREADME)], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
-      }
+          # Populate table
+          for(ifolder in folderNames){
+            if(ifolder %in% checkExistingFolders){ # If description in existing README include here
+              folderIndex <- which(existingFolderNames == ifolder)
+              folderDescription <- sapply(splitExistingFolders, "[[", 3)[folderIndex]
 
-    } else{ # autofill folder table first
+              write(paste0("| ",ifolder," | ", folderDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
+
+            } else{
+              write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
+            }
+          } # End loop over folders
+
+        } # End if statement about populating folders
+
+        ### Any extra sections
+        if(length(titleLines > 3) & is.na(titleLines[which(titleLines ==folderTitle)+1]) != TRUE){ # If the folderTitle is the last heading this won't be run
+          write(" ", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
+          write(existingREADME[titleLines[which(titleLines ==folderTitle)+1]:length(existingREADME)], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
+        }
+      } # End if statement about end of file vs. end & subsequent headers
+
+    } else{ # autofill folder table first !!! Need to re-paste this so it matches the above edits
 
       # If there are headers after the README title but before the file table and folder table fill them in here
       if(length(titleLines > 3) & titleLines[2] != fileTitle & titleLines[2] != folderTitle){

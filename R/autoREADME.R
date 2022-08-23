@@ -33,8 +33,11 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   fileNamesTemp <- uniqueFile[fileIndex]
   folderNames <- uniqueFile[folderIndex]
 
+  # Remove system/project files & existing README file so not included in tables
   fileNames <- fileNamesTemp[which(grepl("README", fileNamesTemp, fixed = TRUE) ==FALSE)] # Remove README file(s) from file list
   fileNames <- fileNames[which(grepl(".Rproj", fileNames, fixed = TRUE) ==FALSE)] # Remove .Rproj file from file list
+  fileNames <- fileNames[which(grepl(".git", fileNames, fixed = TRUE) ==FALSE)] # Remove .git file from file list
+
 
   # Check if all upper case (assume all upper case names are files rather than folders even if no file extension)
   capIndex <- which(folderNames == toupper(folderNames)) # Check which names are the same when entire name is capitalized

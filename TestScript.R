@@ -6,7 +6,7 @@
 
 # Test README generation
 autoREADME(dirREADME = "TestRepo/AnotherFolder")
-autoREADME(dirREADME = "TestRepo/TestFolder")
+
 
 # Add steps to set up R environment, load R packages, run my script
 

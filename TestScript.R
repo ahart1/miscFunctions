@@ -36,6 +36,7 @@ autoREADME(dirREADME = "TestThis", title = "Test Title", description = "This is 
     ##  | File        | Description | # Swap out Folder in this line for the folder section
     ##  | ----------- | ----------- |
     # 4a) NOTE: The README causing errors may be only on GitHub if you haven't pulled changes recently!
+  # 5) Confirm that you are running the action in miscFunctions directory, if you try running the action elsewhere the script won't find the autoREADME function and other errors will be generated.
 
 ##### Resources #####
 # Simpler example: https://blog--simonpcouch.netlify.app/blog/r-github-actions-commit/

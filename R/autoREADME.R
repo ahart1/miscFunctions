@@ -14,13 +14,13 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   # setwd(paste(getwd(), dirREADME, sep="/"))
   # # setwd(paste("/home/runner/work/", dirREADME, sep="/"))
   # print("newdirectory")
-  print(getwd())
+  # print(getwd())
   ##### Get updated file info for README #####
   fileList <- NULL
   # Generate updated list of files and sub-directories in repo
   fileList$File <- list.files(dirREADME,recursive=T, full.names = T)
   fileList$File <- c(fileList$File, list.dirs(dirREADME, recursive=T, full.names=T))
-  print(list.dirs(dirREADME, recursive=T, full.names=T))
+  print(list.dirs(dirREADME, recursive=TRUE, full.names=TRUE))
   # Filter out repo part of filename
   fileList$File <- gsub(paste(dirREADME, "/", sep=""),"", fileList$File)
   # Remove dirREADME directory from list
@@ -32,19 +32,16 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   # Split filenames
   fileSplit <- strsplit(fileList$File, "/", fixed=T)
 
-  print("File split")
-  print(fileSplit)
-
   # Pull unique files at top directory level for the current repository
   uniqueFile <- sapply(fileSplit,"[[",1) %>% unique()
-
-  print("uniqueFile")
-  print(uniqueFile)
 
   # Use strsplit() to ID files vs. sub-directories
   index <- strsplit(uniqueFile, ".", fixed=TRUE)
   fileIndex <- which(lengths(index) > 1)
   folderIndex <- which(lengths(index) == 1)
+
+  print("index")
+  print(index)
 
   # Final list of file and folder names in this directory
   fileNamesTemp <- uniqueFile[fileIndex]
@@ -94,6 +91,8 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
 
       # Pull out existing table lines between fileTabTop and following header
       existingFiles <- existingREADME[(fileTabTop+1):(titleLines[which(titleLines == fileTitle)+1]-2)]
+      print("existingFiles")
+      print(existingFiles)
       splitExistingFiles <- strsplit(existingFiles, "| ", fixed=TRUE)
       existingFileName <- sapply(splitExistingFiles,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
       checkExistingFiles <- existingFileName[which(existingFileName %in% uniqueFile)]

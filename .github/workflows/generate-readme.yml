@@ -78,36 +78,20 @@ jobs:
           source("main/TestScript.R")
         shell: Rscript {0}
 
-      # - name: Commit files
-      #   uses: EndBug/add-and-commit@v9
-      #   with:
-      #     author_name: A. Hart
-      #     message: "Auto update/generate README file."
-      #     cwd: TestRepo
-      #     push: true
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - name: Commit files
+        uses: EndBug/add-and-commit@v9
         with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          # Above could work but requires credentials to push to repo
+          author_name: A. Hart
+          message: "Auto update/generate README file."
+          cwd: TestRepo
+          push: true
+          token: ${{secrets.GITHUB_TOKEN}}
+       # Above could work but requires credentials to push to repo
           # probably need to provide token to actions/checkout
 
-      # doesn't add files - but otherwise appears to work
-      # - name: Commit files
-      #   uses: stefanzweifel/git-auto-commit-action@v4
+
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
       #   with:
-      #     commit_message: Auto update/generate README file.
-      #     file_pattern: README.md
-      #     repository: TestRepo
-
-      # Requires setup - doesn't work
-      # - name: Commit files
-      #   run: |
-      #     git config --local user.email "actions@github.com"
-      #     git config --local user.name "GitHub Actions"
-      #     git add --all
-      #     git commit -am "add data"
-      #     git push
-
-
+      #     github_token: ${{secrets.GITHUB_TOKEN}}
+      # # error that this only valid inside github repo

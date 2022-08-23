@@ -148,13 +148,14 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
         }
 
       } else { # folderTabTop and any subsequent headers
+        existingFolders <- existingREADME[(folderTabTop+1):length(existingREADME)]
+
         if(NA %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
           for(ifolder in folderNames){
             write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
 
           }
         } else{ # Populate with new folders
-          existingFolders <- existingREADME[(folderTabTop+1):length(existingREADME)]
           splitExistingFolders <- strsplit(existingFolders, "| ", fixed=TRUE)
           existingFolderNames <- sapply(splitExistingFolders,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following folder name
           checkExistingFolders <- existingFolderNames[which(existingFolderNames %in% uniqueFile)]

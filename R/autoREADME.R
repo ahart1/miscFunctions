@@ -81,7 +81,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
       print("test2")
     }
     if(title != ""){ # If title argument not set to default, print the title
-      write(title, file=paste(dirREADME,"README.md",sep="/"),append=FALSE)
+      write(paste0("### ",title), file=paste(dirREADME,"README.md",sep="/"),append=FALSE)
       print("test3")
     }
 

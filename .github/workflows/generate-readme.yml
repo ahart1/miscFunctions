@@ -78,13 +78,17 @@ jobs:
           source("main/TestScript.R")
         shell: Rscript {0}
 
-      - name: Commit files
-        uses: EndBug/add-and-commit@v9
+      # - name: Commit files
+      #   uses: EndBug/add-and-commit@v9
+      #   with:
+      #     author_name: A. Hart
+      #     message: "Auto update/generate README file."
+      #     cwd: TestRepo
+      #     push: true
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          author_name: A. Hart
-          message: "Auto update/generate README file."
-          cwd: TestRepo
-          push: true
           github_token: ${{secrets.GITHUB_TOKEN}}
           # Above could work but requires credentials to push to repo
           # probably need to provide token to actions/checkout

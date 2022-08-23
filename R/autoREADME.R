@@ -40,9 +40,6 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   fileIndex <- which(lengths(index) > 1)
   folderIndex <- which(lengths(index) == 1)
 
-  print("index")
-  print(index)
-
   # Final list of file and folder names in this directory
   fileNamesTemp <- uniqueFile[fileIndex]
   folderNames <- uniqueFile[folderIndex]
@@ -91,18 +88,23 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
 
       # Pull out existing table lines between fileTabTop and following header
       existingFiles <- existingREADME[(fileTabTop+1):(titleLines[which(titleLines == fileTitle)+1]-2)]
-      print("existingFiles")
-      print(existingFiles)
       splitExistingFiles <- strsplit(existingFiles, "| ", fixed=TRUE)
       existingFileName <- sapply(splitExistingFiles,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
       checkExistingFiles <- existingFileName[which(existingFileName %in% uniqueFile)]
+
+      print("checkExistingFiles")
+      print(checkExistingFiles)
 
       # Populate table
       for(ifile in fileNames){
         if(ifile %in% checkExistingFiles){ # If description in existing README include here
           fileIndex <- which(existingFileName == ifile)
+          print("fileIndex")
+          print(fileIndex)
           fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
 
+          print("fileDescription")
+          print(fileDescription)
           write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
 
         } else{

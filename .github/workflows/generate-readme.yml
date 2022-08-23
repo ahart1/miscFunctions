@@ -86,8 +86,7 @@ jobs:
           cwd: TestRepo
           push: true
           github_token: ${{secrets.AUTOREADME_PAT}}
-       # Above could work but requires credentials to push to repo
-          # probably need to provide token to actions/checkout
+       # Will need to periodically update personal access token (limited lifespan) & corresponding secrets
 
 
       # - name: Push changes

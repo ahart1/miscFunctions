@@ -1,21 +1,8 @@
 # This is an example R script to test README generation
 
-# install.packages("usethis")
-# library(usethis)
-# install.packages("pkgdown")
-# library(pkgdown)
-# install.packages("rcmdcheck")
-# library(rcmdcheck)
-# install.packages("rversions")
-# library(rversions)
-# install.packages("urlchecker")
-# library(urlchecker)
-# install.packages('devtools')
-# library(devtools)
-# devtools::install_github("ahart1/miscFunctions")
-# library(miscFunctions)
-# devtools::install_github("ahart1/miscFunctions")
-
+# In order to auto generate/update README files:
+  # 1) Add new line calling autoREADME and specifying the directory
+  # 2) Add new section to YAML file to checkout other repos
 
 # Test README generation
 autoREADME(dirREADME = "TestRepo/AnotherFolder")

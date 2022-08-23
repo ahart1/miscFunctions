@@ -82,49 +82,61 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
         write(existingREADME[titleLines[2]:fileTitle-1], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
       }
 
+
       ### File table
       # Add table header and description for file table
       write(existingREADME[fileTitle:fileTabTop], file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
 
+      # Add divider for formatting
+      write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
+
       # Pull out existing table lines between fileTabTop and following header
       existingFiles <- existingREADME[(fileTabTop+1):(titleLines[which(titleLines == fileTitle)+1]-2)]
-      splitExistingFiles <- strsplit(existingFiles, "| ", fixed=TRUE)
-      existingFileName <- sapply(splitExistingFiles,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
-      checkExistingFiles <- existingFileName[which(existingFileName %in% uniqueFile)]
-
-      print("checkExistingFiles")
-      print(checkExistingFiles)
-
-      # Populate table
-      for(ifile in fileNames){
-        if(ifile %in% checkExistingFiles){ # If description in existing README include here
-          fileIndex <- which(existingFileName == ifile)
-          fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
-
-          print(ifile)
-          print("fileDescription")
-          print(fileDescription)
-          write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
-
-        } else{
+      if("" %in% existingFiles){ # If no existing files in README skip to fill in with new files
+        for(ifile in fileNames){
           write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
         }
+      } else{ # Populate mix of old & new files
+        splitExistingFiles <- strsplit(existingFiles, "| ", fixed=TRUE)
+        existingFileName <- sapply(splitExistingFiles,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
+        checkExistingFiles <- existingFileName[which(existingFileName %in% uniqueFile)]
+
+        # Populate table
+        for(ifile in fileNames){
+          if(ifile %in% checkExistingFiles){ # If description in existing README include here
+            fileIndex <- which(existingFileName == ifile)
+            fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
+
+            print(ifile)
+            print("fileDescription")
+            print(fileDescription)
+            write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
+
+          } else{
+            write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
+          }
+        }
       }
+
 
       ### Any extra sections
       if(length(titleLines > 3) & titleLines[which(titleLines ==fileTitle)+1] != folderTitle){
         write(existingREADME[titleLines[which(titleLines ==fileTitle)+1]:folderTitle-1], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
       }
 
+
       ### Folder table
       # Add table header and description for folder table
       write(existingREADME[folderTitle:folderTabTop], file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
+
+      # Add divider for formatting
+      write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
 
       # Pull out existing table lines between:
       if(folderTitle == titleLines[length(titleLines)]){ # folderTabTop and end of file
         existingFolders <- existingREADME[(folderTabTop+1):length(existingREADME)]
 
-        if(NA %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
+        if("" %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
           for(ifolder in folderNames){
             write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
 
@@ -147,11 +159,10 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
             }
           } # End loop over folders
         }
-
       } else { # folderTabTop and any subsequent headers
         existingFolders <- existingREADME[(folderTabTop+1):length(existingREADME)]
 
-        if(NA %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
+        if("" %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
           for(ifolder in folderNames){
             write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
 
@@ -176,6 +187,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
 
         } # End if statement about populating folders
 
+
         ### Any extra sections
         if(length(titleLines > 3) & is.na(titleLines[which(titleLines ==folderTitle)+1]) != TRUE){ # If the folderTitle is the last heading this won't be run
           write(" ", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
@@ -183,92 +195,131 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
         }
       } # End if statement about end of file vs. end & subsequent headers
 
-    } else{ # autofill folder table first !!! Need to re-paste this so it matches the above edits
 
-      # If there are headers after the README title but before the file table and folder table fill them in here
+
+
+    } else{ # If folder table first autofill folder table first
+
+      # If there are headers after the README title but before the folder table and file table fill them in here
       if(length(titleLines > 3) & titleLines[2] != fileTitle & titleLines[2] != folderTitle){
         write(existingREADME[titleLines[2]:folderTitle-1], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
       }
+
 
       ### Folder table
       # Add table header and description for folder table
       write(existingREADME[folderTitle:folderTabTop], file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
 
+      # Add divider for formatting
+      write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
+
       # Pull out existing table lines between folderTabTop and following header
-      existingFolders <- existingREADME[(folderTabTop+1):(titleLines[which(titleLines == folderTitle)+1]-2)]
-      splitExistingFolders <- strsplit(existingFolders, "| ", fixed=TRUE)
-      existingFolderName <- sapply(splitExistingFolders,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
-      checkExistingFolders <- existingFolderName[which(existingFolderName %in% uniqueFile)]
-
-      # Populate table
-      for(ifolder in folderNames){
-        if(ifolder %in% checkExistingFolders){ # If description in existing README include here
-          folderIndex <- which(existingFolderName == ifolder)
-          folderDescription <- sapply(splitExistingFolders, "[[", 3)[folderIndex]
-
-          write(paste0("| ",ifolder," | ", folderDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name with existing description
-
-        } else{
+      existingFiles <- existingREADME[(folderTabTop+1):(titleLines[which(titleLines == folderTitle)+1]-2)]
+      if("" %in% existingFolders){ # If no existing folders in README skip to fill in with new folders
+        for(ifolder in folderNames){
           write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
+        }
+      } else{ # Populate mix of old & new files
+        splitExistingFolders <- strsplit(existingFolders, "| ", fixed=TRUE)
+        existingFolderName <- sapply(splitExistingFolderss,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following folder name
+        checkExistingFolders <- existingFolderName[which(existingFolderName %in% uniqueFolder)]
+
+        # Populate table
+        for(ifolder in folderNames){
+          if(ifolder %in% checkExistingFolders){ # If description in existing README include here
+            folderIndex <- which(existingFolderName == ifolder)
+            folderDescription <- sapply(splitExistingFolders, "[[", 3)[folderIndex]
+
+            write(paste0("| ",ifolder," | ", folderDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name with existing description
+
+          } else{
+            write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
+          }
         }
       }
 
+
       ### Any extra sections
       if(length(titleLines > 3) & titleLines[which(titleLines ==folderTitle)+1] != fileTitle){
-        write(existingREADME[titleLines[which(titleLines ==folderTitle)+1]:fileTitle-1], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
+        write(existingREADME[titleLines[which(titleLines ==fileTitle)+1]:fileTitle-1], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
       }
+
 
       ### File table
       # Add table header and description for file table
       write(existingREADME[fileTitle:fileTabTop], file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
 
+      # Add divider for formatting
+      write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
+
       # Pull out existing table lines between:
-      if(fileTitle == titleLines[length(titleLines)]){ # fileTabTop and end of README
-        existingFiles <- existingREADME[(fileTabTop+1):length(existingREADME)]
-        splitExistingFiles <- strsplit(existingFiles, "| ", fixed=TRUE)
-        existingFileNames <- sapply(splitExistingFiles,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
-        checkExistingFiles <- existingFileNames[which(existingFileNames %in% uniqueFile)]
+      if(fileTitle == titleLines[length(titleLines)]){ # fileTabTop and end of file
+        existingFolders <- existingREADME[(fileTabTop+1):length(existingREADME)]
 
-        # Populate table
-        for(ifile in fileNames){
-          if(ifile %in% checkExistingFiles){ # If description in existing README include here
-            fileIndex <- which(existingFileNames == ifile)
-            fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
-
-            write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
-
-          } else{
+        if("" %in% existingFiles){ # If no existing files in README skip to fill in with new files
+          for(ifile in fileNames){
             write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
+
           }
-        } # End loop over files
+        } else{ # Populate with new files
+          splitExistingFiles <- strsplit(existingFiles, "| ", fixed=TRUE)
+          existingFileNames <- sapply(splitExistingFiles,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
+          checkExistingFiles <- existingFileNames[which(existingFileNames %in% uniqueFile)]
+
+          # Populate table
+          for(ifile in fileNames){
+            if(ifile %in% checkExistingFiles){ # If description in existing README include here
+              fileIndex <- which(existingFileNames == ifile)
+              fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
+
+              write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
+
+            } else{
+              write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
+            }
+          } # End loop over filess
+        }
 
       } else { # fileTabTop and any subsequent headers
-        existingFiles <- existingREADME[(fileTabTop+1):(titleLines[which(titleLines == fileTitle)+1]-2)]
-        splitExistingFiles <- strsplit(existingFiles, "| ", fixed=TRUE)
-        existingFileNames <- sapply(splitExistingFiles,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
-        checkExistingFiles <- existingFileNames[which(existingFileNames %in% uniqueFile)]
+        existingFiles <- existingREADME[(fileTabTop+1):length(existingREADME)]
 
-        # Populate table
-        for(ifile in fileNames){
-          if(ifile %in% checkExistingFiles){ # If description in existing README include here
-            fileIndex <- which(existingFileNames == ifile)
-            fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
-
-            write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
-
-          } else{
+        if("" %in% existingFiles){ # If no existing files in README skip to fill in with new files
+          for(ifile in fileNames){
             write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
+
           }
-        } # End loop over files
-      }
+        } else{ # Populate with new files
+          splitExistingFiles <- strsplit(existingFiles, "| ", fixed=TRUE)
+          existingFileNames <- sapply(splitExistingFiles,"[[",2) %>% strsplit(., " ", fixed=TRUE) # Remove space following file name
+          checkExistingFiles <- existingFileNames[which(existingFileNames %in% uniqueFile)]
 
-      ### Any extra sections
-      if(length(titleLines > 3) & is.na(titleLines[which(titleLines ==fileTitle)+1]) != TRUE){ # If the fileTitle is the last heading this won't be run
-        write(" ", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
-        write(existingREADME[titleLines[which(titleLines ==fileTitle)+1]:length(existingREADME)], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
-      }
+          # Populate table
+          for(ifile in fileNames){
+            if(ifile %in% checkExistingFiles){ # If description in existing README include here
+              fileIndex <- which(existingFileNames == ifile)
+              fileDescription <- sapply(splitExistingFiles, "[[", 3)[fileIndex]
 
-    }
+              write(paste0("| ",ifile," | ", fileDescription), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name with existing description
+
+            } else{
+              write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
+            }
+          } # End loop over files
+
+        } # End if statement about populating files
+
+
+        ### Any extra sections
+        if(length(titleLines > 3) & is.na(titleLines[which(titleLines ==fileTitle)+1]) != TRUE){ # If the fileTitle is the last heading this won't be run
+          write(" ", file=paste(dirREADME,"README.md",sep="/"), append=TRUE)
+          write(existingREADME[titleLines[which(titleLines ==fileTitle)+1]:length(existingREADME)], file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # If extra title not located here this just adds another empty line
+        }
+      } # End if statement about end of file vs. end & subsequent headers
+
+
+
+
+
   # End pull from existing README file
   } else{ # Generate new README
 
@@ -280,16 +331,19 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
 
     # Populate table of files
     write(paste0("### ", "Files"), file = paste(dirREADME,"README.md",sep="/"), append = TRUE)
+    write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Add divider for formatting
     for(ifile in fileNames){
         write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
     }
     write(" ", file = paste(dirREADME,"README.md",sep="/"), append = TRUE) # Add empty line
 
     # Populate table of folders
+    write(paste0("### ", "Folders"), file = paste(dirREADME,"README.md",sep="/"), append = TRUE)
+    write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Add divider for formatting
     for(ifolder in folderNames){
-      write(paste0("### ", "Folders"), file = paste(dirREADME,"README.md",sep="/"), append = TRUE)
       write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description
     }
   }
+
 }
 

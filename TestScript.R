@@ -1,5 +1,10 @@
 # This is an example R script to test README generation
 
+##### Updating/generating new README files #####
+# README in specified dirREADME below updated every Monday
+# May also run manually: GitHub profile -> miscFunctions -> All Workflows -> auto-generate-readme on left -> Click "Run workflow" on right (can specify branch)
+# May uncomment 'push: branches: [ master ]' lines in the YAML to update on each push to miscFunctions (CAUTION: frequent pushes could result in running out of GitHub action minutes!)
+
 ##### Auto generating/updating new README files #####
 # In order to auto generate/update README files:
   # 1) Add new line calling autoREADME and specifying the new directory
@@ -11,7 +16,7 @@
 ##### Update/generate README files #####
 autoREADME(dirREADME = "TestRepo/AnotherFolder")
 autoREADME(dirREADME = "TestRepo/TestFolder")
-autoREADME(dirREADME = "TestThis")
+autoREADME(dirREADME = "TestThis", title = "Test Title", description = "This is an example README generated in several steps to confirm that autoREADME function and associated GitHub action works correctly.")
 
 ##### Debugging #####
 # If the GitHub action does not work try:

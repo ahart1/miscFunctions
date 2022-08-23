@@ -27,7 +27,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
   fileList$File <- fileList$File[-which(fileList$File==dirREADME)]
 
   print("File names here")
-  print("fileList$File")
+  print(fileList$File)
 
   # Split filenames
   fileSplit <- strsplit(fileList$File, "/", fixed=T)

@@ -73,7 +73,7 @@ jobs:
       - name: update_README
         run: |
           library("tidyverse")
-          source("R/autoREADME.R")
+          source("main/R/autoREADME.R")
           source("TestScript.R")
         shell: Rscript {0}
 

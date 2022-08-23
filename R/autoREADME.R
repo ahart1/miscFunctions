@@ -322,6 +322,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
 
     # Populate table of files
     write(paste0("### ", "Files"), file = paste(dirREADME,"README.md",sep="/"), append = TRUE)
+    write("| File | Description |", file = paste(dirREADME,"README.md",sep="/"), append = TRUE)
     write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Add divider for formatting
     for(ifile in fileNames){
       write(paste0("| ",ifile," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write file name without description
@@ -330,6 +331,7 @@ autoREADME <- function(dirREADME = NULL, title = "", description =""){
 
     # Populate table of folders
     write(paste0("### ", "Folders"), file = paste(dirREADME,"README.md",sep="/"), append = TRUE)
+    write("| Folder | Description |", file = paste(dirREADME,"README.md",sep="/"), append = TRUE)
     write("| ----------- | ----------- |", file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Add divider for formatting
     for(ifolder in folderNames){
       write(paste0("| ",ifolder," | ADD DESCRIPTION HERE |"), file=paste(dirREADME,"README.md",sep="/"), append=TRUE) # Write folder name without description

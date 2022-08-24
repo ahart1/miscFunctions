@@ -52,7 +52,7 @@ jobs:
         run: |
           library("tidyverse")
           source("main/R/autoREADME.R")
-          source("main/TestScript.R")
+          source("main/makeREADMEScript.R")
         shell: Rscript {0}
 
       - name: Commit files
